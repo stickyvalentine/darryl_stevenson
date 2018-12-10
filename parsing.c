@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 #include <editline/readline.h>
-
 #include "mpc.h"
 
 int main(int argc, char** argv) {
-
   
   /* Create Some Parsers */
   mpc_parser_t* Number   = mpc_new("number");
@@ -22,7 +19,6 @@ int main(int argc, char** argv) {
   ",
 
   Number, Operator, Expr);
-
   
   /* Print Version and Exit Information */
   puts("Darryl Stevenson : Attempt 1");
@@ -36,10 +32,6 @@ int main(int argc, char** argv) {
 
     /* Add input to history */
     add_history(input);
-
-    /* Echo input back to user */
-    printf("What Darryl heard you say was: %s\n", input);
-
 
     /* Attempt to Parse the user Input */
     mpc_result_t r;
