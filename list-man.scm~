@@ -1,0 +1,26 @@
+(define (delete-n list n)
+  (if (= n 0)
+      (cdr list)
+      (cons (car list) (delete-n (cdr list) (- n 1)))))
+
+(define (insert-n list item n)
+  (if (= n 0)
+      (cons item list)
+      (cons (car list) (insert-n (cdr list) item (- n 1)))))
+
+(define (list-nth list n)
+  (if (= n 0)
+      (car list)
+      (list-nth (cdr list) (- n 1))))
+
+(define (replace-nth list n item)
+  (if (= n 0)
+      (cons item (cdr list))
+      (cons (car list) (replace-nth (cdr list) (- n 1) item))))
+
+(define (swap-list-item list m n)
+  (let
+    ((a (list-nth list m))
+     (b (list-nth list n)))
+    (replace-nth
+      (replace-nth list m b) n a)))
