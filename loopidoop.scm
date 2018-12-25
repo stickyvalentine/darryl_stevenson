@@ -1,22 +1,17 @@
 (load "list-man.scm")
+(load "math.scm")
 
 (define (dothis l)
   (if (and (> (lslen? l) 1) (in_list? (car l) '("+" "-")))
-      (cond ((equal? (car l) "+") (addall (cdr l)))
-	    ((equal? (car l) "-") (suball (cdr l)))
+      (cond ((equal? (car l) "+") (do_add+ (cdr l)))
+	    ((equal? (car l) "-") (do_sub+ (cdr l)))
 	    )
-      l))
+      (print l))
+  (darryl))
 
 (define (darryl)
-  (print (dothis (apnd (numberize_list (string-split (linenoise "Darryl> "))) 0))))
+  (dothis (apnd (numberize_list (string-split (linenoise "Darryl> "))) 0)))
 
-(define (darryl2)
-  (print (eatints (numberize_list (string-split (linenoise "Darryl> "))))))
-
-(define (eatints l)
-  (if (and (integer? (car l)) (>1 (lslen? l)))
-      (eatints (cdr l))
-      (dothis l)))
 
 (define (do_int_eater l)
   (if (and (> (lslen? l) 2) (integer? (car l)))
@@ -28,27 +23,21 @@
       #f
       (or (equal? (car l) i) (in_list? i (cdr l)))))
 
-(define (addall l)
+(define (add+ l)
   (if (and (>1 l) (integer? (car l)))
-      (addall (addone l))
+      (add+ (replace-nth (cdr l)
+			 (+ -1 (lslen? (cdr l)))
+			 (+ (car l) (tail l))))
       (dothis l)))
 
-(define (addone l)
-  (replace-nth (cdr l)
-               (+ -1 (lslen? (cdr l)))
-               (+ (car l) (tail l)))
-  )
-
-(define (suball l)
+(define (sub+ l)
   (if (and (>1 l) (integer? (car l)))
-      (suball (subone l))
+      (sub+ (replace-nth (cdr l)
+			 (+ -1 (lslen? (cdr l)))
+			 (- (tail l) (car l))))
       (dothis l)))
 
-(define (subone l)
-  (replace-nth (cdr l)
-               (+ -1 (lslen? (cdr l)))
-               (- (tail l) (car l)))
-  )
-
-
+(print "------------------------------")
+(print "Darryl Stevenson - 1st Attempt")
+(print "------------------------------")
 (darryl)

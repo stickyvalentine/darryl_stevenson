@@ -67,3 +67,8 @@
 
 (define (string-split s)
   (map list->string (tokenize (string->list s))))
+
+(define (in_list? i l)
+  (if (null? l)
+      #f
+      (or (equal? (car l) i) (in_list? i (cdr l)))))
