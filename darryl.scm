@@ -1,45 +1,25 @@
 (load "list-man.scm")
+(load "math.scm")
 
 (define (dothis l)
-  (cond ((equal? (car l) "+")
-	 (addall (cdr l))))
-  (cond ((equal? (car l) "-")
-	 (suball (cdr l))))
-  (cond ((equal? (car l) '*)
-	 (multall (cdr l))))
-  (cond ((equal? (car l) '/)
-	 (divall (cdr l))))
-  (cond ((equal? (car l) 'double)
-	 (double (cdr l))))
-  )
-
-(define (valid? s)
-  (if (member s '("+" - * /))
-      #t
-      #f))
+  (if (and (> (lslen? l) 1) (in_list? (car l) '("+" "-" "quit" "say")))
+      (cond ((equal? (car l) "+") (do_add+ (cdr l)))
+	    ((equal? (car l) "-") (do_sub+ (cdr l)))
+	    ((equal? (car l) "say" (say (cdr l))))
+	    ((equal? (car l) "quit") (exit))	    
+	    )
+      (print l))
+  (darryl))
 
 (define (darryl)
   (dothis (apnd (numberize_list (string-split (linenoise "Darryl> "))) 0)))
-	
-(define (darryl2)
-  (loopidoop (apnd (numberize_list (string-split (linenoise "Darryl> "))) 0)))
 
-(define (addall l)
-  (if (and (>1 l) (integer? (car l)))
-      (addall (addone l))
-      l))
+(define (say l)
+  (print (car l))
+  (dothis (cdr l)))
 
-(define (addone l)	  
-  (replace-nth (cdr l)
-	       (+ -1 (lslen? (cdr l)))
-	       (+ (car l) (tail l)))
-  )
-
-(define (loopidoop l)
-  (cond ((not (valid? (car l))) (print (car l) "is not a valid symbol")))
-  (cond ((not (>1 l)) (l)))
-  (cond (#t (loopidoop (dothis l))))
-  )
-
-
+(print "------------------------------")
+(print "Darryl Stevenson - 1st Attempt")
+(print "------------------------------")
 (darryl)
+
