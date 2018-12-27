@@ -17,3 +17,16 @@
                          (- (tail l) (car l))))
       (dothis l)))
 
+(define (do_mul+ l)
+  (if (and (>1 l) (integer? (car l)))
+      (do_mul+ (replace-nth (cdr l)
+                         (+ -1 (lslen? (cdr l)))
+                         (* (tail l) (car l))))
+      (dothis l)))
+
+(define (do_div+ l)
+  (if (and (>1 l) (integer? (car l)))
+      (do_div+ (replace-nth (cdr l)
+                         (+ -1 (lslen? (cdr l)))
+                         (/ (tail l) (car l))))
+      (dothis l)))
