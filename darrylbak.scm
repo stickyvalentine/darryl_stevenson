@@ -12,6 +12,9 @@
 	(else l))
   )
 
+(define (anotherdo)
+  (if
+
 (define (dothisthing l)
   (cond ((equal? (car l) "+") (add+ (cdr l)))
 	((equal? (car l) "-") (do_sub+ (cdr l)))
